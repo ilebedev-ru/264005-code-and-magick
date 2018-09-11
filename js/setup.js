@@ -111,7 +111,6 @@ var openSetupPopup = function () {
   var wizardForm = setup.querySelector('.setup-wizard-form');
 
   submitButton.addEventListener('click', function () {
-    // event.preventDefault();
     wizardForm.action = 'https://js.dump.academy/code-and-magick';
     wizardForm.method = 'POST';
     wizardForm.enctype = 'multipart/form-data';
