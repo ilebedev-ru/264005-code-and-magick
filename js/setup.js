@@ -17,6 +17,7 @@ var setupSimilar = setup.querySelector('.setup-similar');
 var setupSimilarList = setup.querySelector('.setup-similar-list');
 var setupOpenButton = document.querySelector('.setup-open');
 var setupCloseButton = setup.querySelector('.setup-close');
+var setupStartStyle = Object.assign({}, getComputedStyle(setup));
 
 var inputUserName = setup.querySelector('.setup-user-name');
 var wizardCoat = setup.querySelector('.wizard-coat');
@@ -136,6 +137,9 @@ var closeEscPressHandler = function (evt) {
 var openSetupPopup = function () {
   setup.classList.remove('hidden');
   setupSimilar.classList.remove('hidden');
+
+  setup.style.top = setupStartStyle.top;
+  setup.style.left = setupStartStyle.left;
 
   document.addEventListener('keydown', closeEscPressHandler);
 };
