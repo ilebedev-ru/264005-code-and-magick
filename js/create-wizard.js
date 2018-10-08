@@ -1,48 +1,45 @@
 'use strict';
 
 (function () {
-  var Wizard = window.utils.Wizard;
-  var getRandomArrElement = window.utils.getRandomArrElement;
+  var SIMILAR_WIZARDS_NUMBER = 4;
+
+  var shuffleArray = window.utils.shuffleArray;
 
   var setupSimilarList = document.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-
-  var renderWizardElement = function (wizardData) {
-    var wizardElement = {
-      name: getRandomArrElement(wizardData.NAMES) + ' ' + getRandomArrElement(wizardData.SURNAMES),
-      coatColor: getRandomArrElement(wizardData.COAT_COLORS),
-      eyesColor: getRandomArrElement(wizardData.EYES_COLORS)
-    };
-    return wizardElement;
-  };
-
-  var createWizardsCollection = function (num) {
-    var collections = [];
-    for (var i = 0; i < num; i++) {
-      collections[i] = renderWizardElement(Wizard);
-    }
-    return collections;
-  };
 
   var renderWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
 
     return wizardElement;
   };
 
-  var createSimilarWizardsFragment = function (wizardCollection) {
+  var loadSuccessHandler = function (wizards) {
     var fragment = document.createDocumentFragment();
+    var shuffleWizards = shuffleArray(wizards);
 
-    for (var i = 0; i < wizardCollection.length; i++) {
-      fragment.appendChild(renderWizard(wizardCollection[i]));
+    for (var i = 0; i < SIMILAR_WIZARDS_NUMBER; i++) {
+      fragment.appendChild(renderWizard(shuffleWizards[i]));
     }
-    return fragment;
+
+    setupSimilarList.appendChild(fragment);
   };
 
-  var wizards = createWizardsCollection(Wizard.WIZARDS_NUMBER);
-  setupSimilarList.appendChild(createSimilarWizardsFragment(wizards));
+  var loadErrorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  }
+
+  window.backend.load(loadSuccessHandler, loadErrorHandler);
 })();
