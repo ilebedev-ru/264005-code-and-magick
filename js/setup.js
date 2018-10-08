@@ -81,7 +81,7 @@
   });
 
   wizardCoat.addEventListener('click', function () {
-    var coatColor = coatColorCounter(Wizard.COAT_COLORS)
+    var coatColor = coatColorCounter(Wizard.COAT_COLORS);
     wizardCoat.style.fill = coatColor;
     wizardCoatValue.value = coatColor;
   });
@@ -98,7 +98,7 @@
     wizardFireballValue.value = fireballColor;
   });
 
-  var saveSuccessHandler = function (response) {
+  var saveSuccessHandler = function () {
     setup.classList.add('hidden');
   };
 
@@ -114,7 +114,7 @@
 
     node.textContent = errorMessage;
     form.appendChild(node);
-  }
+  };
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();

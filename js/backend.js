@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   var LOAD_URL = 'https://js.dump.academy/code-and-magick/data';
   var SAVE_URL = 'https://js.dump.academy/code-and-magick';
 
@@ -9,7 +9,7 @@
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if(xhr.status === 200) {
+      if (xhr.status === 200) {
         loadSuccessHandler(xhr.response);
       } else {
         loadErrorHandler('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);

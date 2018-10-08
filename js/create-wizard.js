@@ -39,7 +39,7 @@
 
     node.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', node);
-  }
+  };
 
   window.backend.load(loadSuccessHandler, loadErrorHandler);
 })();
