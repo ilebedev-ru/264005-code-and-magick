@@ -25,6 +25,13 @@
 
   var form = setup.querySelector('.setup-wizard-form');
 
+  var closeSetupPopup = function () {
+    setup.classList.add('hidden');
+    setupSimilar.classList.add('hidden');
+
+    document.removeEventListener('keydown', closeEscPressHandler);
+  };
+
   var closeEscPressHandler = function (evt) {
     if (evt.keyCode === KeyCode.ESC_KEYCODE) {
       closeSetupPopup();
@@ -39,13 +46,6 @@
     setup.style.left = setupStartStyle.left;
 
     document.addEventListener('keydown', closeEscPressHandler);
-  };
-
-  var closeSetupPopup = function () {
-    setup.classList.add('hidden');
-    setupSimilar.classList.add('hidden');
-
-    document.removeEventListener('keydown', closeEscPressHandler);
   };
 
   var coatColorCounter = makeCounter();
@@ -98,28 +98,18 @@
     wizardFireballValue.value = fireballColor;
   });
 
-  var saveSuccessHandler = function () {
-    setup.classList.add('hidden');
-  };
-
-  var saveErrorHandler = function (errorMessage) {
+  var showSaveError = function (errorMessage) {
     var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.bottom = 0;
-    node.style.fontSize = '20px';
-    node.style.color = 'red';
-
+    node.classList.add('setup-submit-error');
     node.textContent = errorMessage;
+
     form.appendChild(node);
   };
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
 
-    window.backend.save(new FormData(form), saveSuccessHandler, saveErrorHandler);
+    window.backend.save(new FormData(form), closeSetupPopup, showSaveError);
   });
 })();
 
