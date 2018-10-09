@@ -48,6 +48,17 @@
     return max;
   };
 
+  var shuffleArray = function (arr) {
+    var shuffledArr = arr.slice(0);
+    for (var i = shuffledArr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = shuffledArr[i];
+      shuffledArr[i] = shuffledArr[j];
+      shuffledArr[j] = temp;
+    }
+    return shuffledArr;
+  };
+
   var getRandomNumber = function (min, max) {
     var rand = min - 0.5 + Math.random() * (max - min + 1);
     rand = Math.round(rand);
@@ -76,6 +87,7 @@
     StatisticsData: StatisticsData,
     KeyCode: KeyCode,
     getRandomArrElement: getRandomArrElement,
+    shuffleArray: shuffleArray,
     makeCounter: makeCounter,
     findMaxValue: findMaxValue,
     getRandomNumber: getRandomNumber
