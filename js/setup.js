@@ -4,6 +4,7 @@
   var Wizard = window.utils.Wizard;
   var makeCounter = window.utils.makeCounter;
   var KeyCode = window.utils.KeyCode;
+  var updateSimilarWizards = window.updateSimilarWizards;
 
   var setup = document.querySelector('.setup');
   var setupSimilar = document.querySelector('.setup-similar');
@@ -84,12 +85,16 @@
     var coatColor = coatColorCounter(Wizard.COAT_COLORS);
     wizardCoat.style.fill = coatColor;
     wizardCoatValue.value = coatColor;
+
+    window.debounce(updateSimilarWizards, wizardCoatValue.value, wizardEyesValue.value);
   });
 
   wizardEyes.addEventListener('click', function () {
     var eyesColor = eyesColorCounter(Wizard.EYES_COLORS);
     wizardEyes.style.fill = eyesColor;
     wizardEyesValue.value = eyesColor;
+
+    window.debounce(updateSimilarWizards, wizardCoatValue.value, wizardEyesValue.value);
   });
 
   wizardFireball.addEventListener('click', function () {
@@ -111,5 +116,6 @@
 
     window.backend.save(new FormData(form), closeSetupPopup, showSaveError);
   });
+
 })();
 

@@ -90,6 +90,6 @@
     shuffleArray: shuffleArray,
     makeCounter: makeCounter,
     findMaxValue: findMaxValue,
-    getRandomNumber: getRandomNumber
+    getRandomNumber: getRandomNumber,
   };
 })();
